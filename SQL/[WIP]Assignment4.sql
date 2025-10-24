@@ -80,10 +80,10 @@ LIMIT 1;
 -- Each deparment, how many dev, test, scrum master, PM
 SELECT
 	D.DepartmentID as DepID,
-	SUM(IF(PositionName = 'Dev', 1, 0)) as DevCount,
-    SUM(IF(PositionName = 'Test', 1, 0)) as TestCount,
-    SUM(IF(PositionName = 'Scrum Master', 1, 0)) as SMCount,
-    SUM(IF(PositionName = 'PM', 1, 0)) as PMCount
+	SUM(PositionName = 'Dev') as DevCount,
+    SUM(PositionName = 'Test') as TestCount,
+    SUM(PositionName = 'Scrum Master') as SMCount,
+    SUM(PositionName = 'PM') as PMCount
 FROM 
 	Department D LEFT JOIN 
 	(SELECT A.DepartmentID as DepID, PositionName
