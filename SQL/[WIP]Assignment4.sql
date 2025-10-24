@@ -120,3 +120,30 @@ FROM `Question` WHERE QuestionID NOT IN (
     From Answer
 );
     
+
+-- union
+(SELECT * from `Account` where AccountID IN (SELECT AccountID from `GroupAccount` where GroupID = 1))
+UNION
+(SELECT * from `Account` where AccountID IN (SELECT AccountID from `GroupAccount` where GroupID = 2));
+
+
+-- union 2
+(SELECT * 
+	From `Group` 
+    WHERE GroupID IN (
+		SELECT GroupID 
+        FROM `GroupAccount` 
+        GROUP BY GroupID
+        HAVING Count(AccountID) > 5
+	)
+) UNION ALL 
+(SELECT * 
+	From `Group` 
+    WHERE GroupID IN (
+		SELECT GroupID 
+        FROM `GroupAccount` 
+        GROUP BY GroupID
+        HAVING Count(AccountID) > 7
+	)
+);
+
