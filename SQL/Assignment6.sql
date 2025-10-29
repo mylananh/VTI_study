@@ -49,3 +49,19 @@ DELIMITER ;
 
 CALL TypeQuestionStatsThisMonth();
 
+-- Tạo store để trả ra id của type question có nhiều câu hỏi nhất
+DELIMITER >>
+
+CREATE PROCEDURE IdOfBestQuestionType(OUT BestID INT)
+BEGIN
+	SELECT TypeID into BestID
+    FROM Question
+    GROUP BY TypeID
+    ORDER BY COUNT(*) DESC
+    LIMIT 1;
+END >>
+
+DELIMITER ;
+
+CALL IdOfBestQuestionType(@BestID);
+SELECT @BestID as Hehe;
