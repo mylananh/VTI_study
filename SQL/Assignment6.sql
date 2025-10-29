@@ -78,3 +78,25 @@ DELIMITER ;
 
 CALL NameOfBestQuestionType();
 
+-- Viết 1 store cho phép người dùng nhập vào 1 chuỗi và trả về group có tên
+-- chứa chuỗi của người dùng nhập vào hoặc trả về user có username chứa
+-- chuỗi của người dùng nhập vào
+
+DELIMITER VTI
+
+CREATE PROCEDURE NameOrGroup(IN TargetName VARCHAR(200))
+BEGIN
+    (
+		SELECT 'Group' as `Type`, GroupName as `Name`
+		FROM `Group` WHERE GroupName LIKE concat('%', TargetName, '%')
+    ) UNION ALL
+    (
+		SELECT 'User' as `Type`, Username as `Name`
+		FROM `Account` WHERE Username LIKE concat('%', TargetName, '%')
+    );
+END VTI
+
+DELIMITER ;
+
+CALL NameOrGroup('an');
+
