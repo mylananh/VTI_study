@@ -65,3 +65,16 @@ DELIMITER ;
 
 CALL IdOfBestQuestionType(@BestID);
 SELECT @BestID as Hehe;
+
+DELIMITER &&&&&&&
+
+CREATE PROCEDURE NameOfBestQuestionType()
+BEGIN
+	CALL IdOfBestQuestionType(@BestID);
+    SELECT TypeName from `TypeQuestion` WHERE TypeID = @BestID;
+END &&&&&&&
+
+DELIMITER ;
+
+CALL NameOfBestQuestionType();
+
